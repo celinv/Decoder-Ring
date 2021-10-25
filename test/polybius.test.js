@@ -60,4 +60,11 @@ describe("error handling", () =>  {
         expect(actual).to.equal(expected);
     })
 
+    it("returns false if length of all numbers is odd", () => {
+        const expected = false; 
+        const actual = polybius("my message4", false);
+
+        expect(actual).to.equal(expected);
+    })
+
 });

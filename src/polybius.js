@@ -23,9 +23,11 @@ const polybiusModule = (function () {
   function polybius(input, encode = true) {
 
     const lowerCaseInput = input.toLowerCase().split("");
-
+    const regex = /[0-9]/gi;
+    
     //for encoding polybius cipher
     if (encode) {
+      if(input.match(regex)) return false;
     const encodedMessage = lowerCaseInput.map((character) => {
         //error checking for input value
         if(polybiusAlphabet[character]) {
@@ -42,7 +44,8 @@ const polybiusModule = (function () {
     else {
       let decodedMessage = "";
       for (let i = 0; i < lowerCaseInput.length; i++) {
-        let key = lowerCaseInput[i]+lowerCaseInput[i+1]; //creates decodedPolybius keys 
+        let key = lowerCaseInput[i]+lowerCaseInput[i+1]; //creates decodedPolybius keys
+        if(key.length !== 2) return false; //returns false if length of all numbers is odd
         if(decodedPolybius[key]) {
           //gets matching decodedPolybius keys and pushes it to decodedMessage
           decodedMessage += decodedPolybius[key]; 
@@ -53,7 +56,6 @@ const polybiusModule = (function () {
           decodedMessage += lowerCaseInput[i];
         }
       }
-      
       return decodedMessage;
     }
   
